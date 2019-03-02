@@ -1,0 +1,1 @@
+## react-redux-lightswitch mini app
