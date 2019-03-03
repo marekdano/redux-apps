@@ -1,20 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { createStore } from "redux";
+import { Provider, connect } from "react-redux";
 import "./index.css";
 
-class Room extends React.Component {
-  state = {
-    isLightOn: true
-  };
+function reducer(state = initState, action) {
+  switch (action.type) {
+    case "FLIP":
+      return {
+        isLightOn: !state.isLightOn
+      };
+    default:
+      return state;
+  }
+}
 
+const initState = { isLightOn: true };
+const store = createStore(reducer);
+
+class Room extends React.Component {
   flipLight = () => {
-    this.setState({
-      isLightOn: !this.state.isLightOn
-    });
+    this.props.dispatch({ type: "FLIP" });
   };
 
   render() {
-    const lightedness = this.state.isLightOn ? "lit" : "dark";
+    const lightedness = this.props.isLightOn ? "lit" : "dark";
     return (
       <div className={`room ${lightedness}`}>
         the room is {lightedness}
@@ -25,4 +35,16 @@ class Room extends React.Component {
   }
 }
 
-ReactDOM.render(<Room />, document.getElementById("root"));
+const mapStateToProps = state => {
+  return {
+    isLightOn: state.isLightOn
+  };
+};
+const ConnectedRoom = connect(mapStateToProps)(Room);
+
+ReactDOM.render(
+  <Provider store={store}>
+    <ConnectedRoom />
+  </Provider>,
+  document.getElementById("root")
+);
