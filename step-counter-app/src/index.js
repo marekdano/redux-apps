@@ -4,6 +4,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import StepCounter from './StepCounter';
 import { INCREMENT, RESET } from './actions';
+import './index.css';
 
 function reducer(state = initState, action) {
 	switch (action.type) {

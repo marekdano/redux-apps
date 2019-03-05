@@ -1,0 +1,19 @@
+.main {
+	display: flex;
+	flex-direction: column;
+	margin: 4em auto;
+	width: 300px;
+	text-align: center;
+}
+
+button {
+	margin-top: 1.4em;
+	padding: 1em;
+	background: purple;
+	color: white;
+}
+
+button.btn__reset {
+	background: lightgray;
+	color: #010101;
+}

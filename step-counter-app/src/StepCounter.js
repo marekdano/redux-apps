@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { increment, reset } from './actions';
+import './StepCounter.css'
 
 const StepCounter = (props) => {
 	const increment = () => {
@@ -12,11 +13,11 @@ const StepCounter = (props) => {
 	}
 
 	return (
-		<>
+		<div className="main">
 			<div>You've walked {props.counter} steps today!</div>
 			<button onClick={increment}>Add a Step</button>
-			<button onClick={reset}>Reset Steps</button>
-		</>
+			<button className="btn__reset" onClick={reset}>Reset Steps</button>
+		</div>
 	);
 }
 
