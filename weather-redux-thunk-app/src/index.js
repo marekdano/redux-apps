@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import './index.css';
 import { getCities } from './actions';
+import App from './App';
 
 function reducer(state = initState, action) {
 	switch (action.type) {
@@ -25,7 +26,7 @@ store.dispatch(getCities('dublin'));
 
 ReactDOM.render(
 	<Provider store={store}>
-		<div />
+		<App />
 	</Provider>, 
 	document.getElementById("root")
 );
