@@ -15,6 +15,13 @@ const App = (props) => {
 				placeholder={'city name...'}
 				handleChange={props.handleInputChange} 
 			/>
+			<div>
+				{props.cities.length ? 
+					props.cities.map(city => {
+						return <span>{city.title}</span>
+					}) :
+					null}
+			</div>
 			<Forecast />
 		</>
 	);
@@ -32,6 +39,10 @@ const mapDispatchToProps = dispatch => ({
 	handleInputChange: handleChange(dispatch),
 });
 
-const handleChange = (dispatch) => (e) => dispatch(getCities(e.target.value));
+const handleChange = (dispatch) => (e) => {
+	if (e.target.value) {
+		return dispatch(getCities(e.target.value));
+	}
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
