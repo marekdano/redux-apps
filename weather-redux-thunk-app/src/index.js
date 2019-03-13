@@ -4,9 +4,13 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import './index.css';
-import { getCities } from './actions';
 import App from './App';
-import { GET_CITIES_SUCCESS, GET_CITIES_FAILURE, GET_CITIES_BEGIN } from './constants';
+import { 
+	GET_CITIES_SUCCESS, GET_CITIES_FAILURE, GET_CITIES_BEGIN,
+	GET_FORECAST_BEGIN, GET_FORECAST_SUCCESS, GET_FORECAST_FAILURE,
+	ADD_CITY_NAME
+} from './constants';
+
 
 function reducer(state = initState, action) {
 	switch (action.type) {
@@ -29,19 +33,48 @@ function reducer(state = initState, action) {
 				isLoading: false,
 				error: action.error
 			};
+		case GET_FORECAST_BEGIN:
+			return {
+				...state,
+				isLoading: true,
+				error: null
+			};
+		case GET_FORECAST_SUCCESS:
+			return {
+				...state,
+				cityForecast: action.cityForecast,
+				isLoading: false,
+				error: null
+			};
+		case GET_FORECAST_FAILURE:
+			return {
+				...state,
+				isLoading: false,
+				error: action.error
+			};
+		case ADD_CITY_NAME: 
+			return {
+				...state,
+				cityName: action.cityName,
+			}
 		default: 
 			return state;
 	}
 }
 
 const initState = { 
+	cityName: '',
 	cityForecast: {},
-	cities: {},
+	cities: [],
 	isLoading: false,
 	error: null,
 };
-const store = createStore(reducer, applyMiddleware(thunk));
-store.dispatch(getCities('dublin'));
+
+const store = createStore(
+	reducer, 
+	applyMiddleware(thunk)
+);
+// store.dispatch(getCities('dublin'));
 
 ReactDOM.render(
 	<Provider store={store}>
@@ -49,4 +82,3 @@ ReactDOM.render(
 	</Provider>, 
 	document.getElementById("root")
 );
-
