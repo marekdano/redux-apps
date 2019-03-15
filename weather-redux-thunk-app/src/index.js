@@ -24,6 +24,7 @@ function reducer(state = initState, action) {
 			return {
 				...state,
 				cities: action.cities,
+				cityForecast: null,
 				isLoading: false,
 				error: null
 			};

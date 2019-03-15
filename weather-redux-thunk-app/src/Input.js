@@ -13,6 +13,7 @@ const Input = (props) => {
 				onChange={props.handleChange}
 				onKeyPress={props.handleKeyPress}
 				placeholder={props.placeholder} 
+				autoFocus
 			/>
 		</div>
 	);
