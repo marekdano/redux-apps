@@ -3,24 +3,26 @@ import { connect } from 'react-redux';
 import Input from './Input';
 import Forecast from './Forecast';
 import { getCities } from './actions';
+import { ADD_CITY_NAME } from './constants';
 
 const App = (props) => {
-	const isValidCity = props.cities.length >= 1 && props.cities[0].title.toLowerCase() === props.cityName.toLowerCase();
-
 	return (
 		<>
+			<h5>City Weather</h5>
 			<Input 
 				name={'city'}
 				type={'text'}
-				title={'Current Weather'}
 				value={props.cityName} 
 				placeholder={'city name...'}
 				handleChange={props.handleInputChange} 
-				handleKeyPress={props.handleInputKeyPress}
+				handleKeyPress={props.handleKeyPress}
 			/>
+			<button 
+				onClick={() => props.handleBtnClick(props)}
+			>
+				Get It
+			</button>
 			<div>
-				{ props.cityName !== '' && !isValidCity ? 
-					<div>City name has not been found.</div> : null }
 				<Forecast details={props.cityForecast}/>
 			</div>
 		</>
@@ -37,18 +39,24 @@ const mapStateToProps = state => {
 	}
 };
 
-const mapDispatchToProps = dispatch => ({
-	handleInputChange: handleChange(dispatch),
-	handleInputKeyPress: handleKeyPress(dispatch) 
+const mapDispatchToProps = (dispatch) => ({
+	handleInputChange: handleInputChange(dispatch),
+	handleBtnClick: handleBtnClick(dispatch),
+	handleKeyPress: handleKeyPress(dispatch),
 });
 
-const handleChange = (dispatch) => (e) => {
-	// return dispatch({type: ADD_CITY_NAME, cityName: e.target.value});
-	return dispatch(getCities(e.target.value));
+const handleInputChange = (dispatch) => (e) => {
+	return dispatch({type: ADD_CITY_NAME, cityName: e.target.value});
 };
 
+const handleBtnClick = (dispatch) => (props) => {
+	if (props.cityName) {
+		return dispatch(getCities(props.cityName));
+	}
+}
+
 const handleKeyPress = (dispatch) => (e) => {
-	if (e.key === 'Enter' && e.target.value) {
+	if (e.key === 'Enter') {
 		return dispatch(getCities(e.target.value));
 	}
 }

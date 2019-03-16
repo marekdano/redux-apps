@@ -1,13 +1,13 @@
 import {
 	GET_CITIES_SUCCESS, GET_CITIES_BEGIN, GET_CITIES_FAILURE, 
-	GET_FORECAST_SUCCESS, GET_FORECAST_BEGIN, GET_FORECAST_FAILURE, ADD_CITY_NAME 
+	GET_FORECAST_SUCCESS, GET_FORECAST_BEGIN, GET_FORECAST_FAILURE 
 } from './constants';
 
 const baseUrl = 'https://weather.daveceddia.com/api/location/'
 
 export function getCities(query) {
 	return (dispatch, getState) => {
-		dispatch({type: ADD_CITY_NAME, cityName: query});
+		// dispatch({type: ADD_CITY_NAME, cityName: query});
 		if (query) {
 			dispatch({type: GET_CITIES_BEGIN});
 			fetch(`${baseUrl}/search/?query=${query}`)
@@ -19,6 +19,8 @@ export function getCities(query) {
 					});
 					if (cities.length === 1 && cities[0].title.toLowerCase() === query.toLowerCase()) {
 						dispatch(getCityForecast(cities[0].woeid));
+					} else {
+						dispatch({ type: GET_CITIES_FAILURE, error: {message: 'City name has not been found.'}});
 					}
 				})
 				.catch(error => {
