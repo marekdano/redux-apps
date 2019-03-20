@@ -1,4 +1,4 @@
-import { ADD_COURSE } from './actions';
+import { ADD_COURSE_SUCCESS } from './actions';
 
 const initState = {
 	courses: [],
@@ -6,7 +6,7 @@ const initState = {
 
 export default function reducer (state = initState, action) {
 	switch(action.type) {
-		case ADD_COURSE: 
+		case ADD_COURSE_SUCCESS: 
 			return {
 				...state,
 				courses: [ ...state.courses, action.payload ],
