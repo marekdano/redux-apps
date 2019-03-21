@@ -18,6 +18,7 @@
     "eject": "react-scripts eject",
     "dev-server": "json-server db.json -w -p 8000"
   },
+  "proxy": "http://localhost:8000",
   "eslintConfig": {
     "extends": "react-app"
   },
