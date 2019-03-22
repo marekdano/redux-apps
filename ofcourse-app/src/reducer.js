@@ -1,8 +1,10 @@
-import { ADD_COURSE_SUCCESS, ADD_COURSE_BEGIN, ADD_COURSE_ERROR } from './actions';
+import { ADD_COURSE_SUCCESS, ADD_COURSE_BEGIN, ADD_COURSE_ERROR, LOAD_COURSES_SUCCESS, LOAD_COURSES_BEGIN, LOAD_COURSES_ERROR } from './actions';
 
 const initState = {
-	loading: false,
-	error: null,
+	saveInProgress: false,
+	saveError: null,
+	coursesLoading: false,
+	coursesError: null,
 	courses: [],
 };
 
@@ -11,20 +13,38 @@ export default function reducer (state = initState, action) {
 		case ADD_COURSE_BEGIN:
 			return {
 				...state,
-				loading: true,
-      	error: null,
+				saveInProgress: true,
+      	saveError: null,
 			}
 		case ADD_COURSE_SUCCESS: 
 			return {
 				...state,
-				loading: false,
+				saveInProgress: false,
 				courses: [ ...state.courses, action.payload ],
 			}
 		case ADD_COURSE_ERROR:
 			return {
 				...state,
-				loading: false,
-      	error: action.error,
+				saveInProgress: false,
+      	saveError: action.saveError,
+			}
+		case LOAD_COURSES_BEGIN:
+			return {
+				...state,
+				coursesLoading: true,
+				coursesError: null,
+			}
+		case LOAD_COURSES_SUCCESS:
+			return {
+				...state,
+				courses: action.payload,
+				coursesLoading: false,
+			}
+		case LOAD_COURSES_ERROR:
+			return {
+				...state,
+				coursesLoading: false,
+				coursesError: action.error,
 			}
 		default:
 			return state;

@@ -1,5 +1,9 @@
 export const createCourse = name => {
-	return postData('http://localhost:8000/courses', { name });
+	return postData('/courses', { name });
+}
+
+export const getCourses = () => {
+	return fetch('/courses').then(res => res.json());
 }
 
 function postData(url = ``, data = {}) {
