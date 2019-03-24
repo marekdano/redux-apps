@@ -12,10 +12,11 @@ const CourseListPage = ({
 	dispatch 
 }) => {
 	const [courseName, setCourseName] = useState('');
+	const [coursePrice, setCoursePrice] = useState('');
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		dispatch(addCourse(courseName))
+		dispatch(addCourse(courseName, coursePrice))
 	}
 
 	if (coursesLoading) {
@@ -37,6 +38,14 @@ const CourseListPage = ({
 					disabled={saveInProgress}
 					value={courseName}
 					onChange={e => setCourseName(e.target.value)}
+				/>
+				<label>
+					Pick a price:
+				</label>
+				<input 
+					disabled={saveInProgress}
+					value={coursePrice}
+					onChange={e => setCoursePrice(e.target.value)}
 				/>
 				{ saveError && (
 					<div className="saveError-message">

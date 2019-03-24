@@ -1,5 +1,8 @@
-export const createCourse = name => {
-	return postData('/courses', { name });
+export const createCourse = (name, price) => {
+	return postData('/courses', { 
+		name,
+		price: parseFloat(price)
+	});
 }
 
 export const getCourses = () => {
