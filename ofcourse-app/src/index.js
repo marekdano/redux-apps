@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
+import Modal from 'react-modal';
 import reducer from './reducer';
 import App from './App';
 import { loadCourses } from './actions';
@@ -22,6 +23,8 @@ const enhancer = composeEnhancers(
 
 const store = createStore(reducer, enhancer);
 store.dispatch(loadCourses());
+
+Modal.setAppElement('#root');
 
 ReactDOM.render(
 	<Provider store={store}>
