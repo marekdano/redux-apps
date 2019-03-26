@@ -1,12 +1,14 @@
+const PREFIX = '/api';
+
 export const createCourse = (name, price) => {
-	return postData('/courses', { 
+	return postData(PREFIX +'/courses', { 
 		name,
 		price: parseFloat(price)
 	});
 }
 
 export const getCourses = () => {
-	return fetch('/courses').then(res => res.json());
+	return fetch(PREFIX + '/courses').then(res => res.json());
 }
 
 function postData(url = ``, data = {}) {
