@@ -10,5 +10,12 @@
       "price": 10,
       "id": 2
     }
+  ],
+  "lessons": [
+    {
+      "name": "lesson",
+      "courseId": 1,
+      "id": 1
+    }
   ]
 }
