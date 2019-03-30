@@ -4,7 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import Modal from 'react-modal';
-import reducer from './reducer';
+import reducer from './reducers';
 import App from './App';
 import { loadCourses } from './actions';
 import './index.css';

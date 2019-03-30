@@ -7,8 +7,7 @@ import {
 	LOAD_COURSES_ERROR,
 	OPEN_NEW_COURSE_MODAL,
 	CLOSE_NEW_COURSE_MODAL,
-	ADD_LESSON_SUCCESS,
-} from './actions';
+} from '../actions';
 
 const initState = {
 	saveInProgress: false,
@@ -17,10 +16,9 @@ const initState = {
 	coursesError: null,
 	courses: [],
 	newCourseModalOpen: false,
-	lessons: [],
 };
 
-export default function reducer (state = initState, action) {
+const reducer = (state = initState, action) => {
 	switch(action.type) {
 		case ADD_COURSE_BEGIN:
 			return {
@@ -70,12 +68,9 @@ export default function reducer (state = initState, action) {
 				newCourseModalOpen: false,
       	saveError: null,
 			};
-		case ADD_LESSON_SUCCESS:
-			return {
-				...state,
-				lessons: [...state.lessons, action.payload]
-			};
 		default:
 			return state;
 	}
-} 
+}
+
+export default reducer;

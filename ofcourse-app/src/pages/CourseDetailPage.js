@@ -39,11 +39,11 @@ const CourseDetailPage = ({ course, lessons, loading }) => {
 const mapStateToProps = (state, ownProps) => {
 	const courseId = parseInt(ownProps.courseId, 10);
 	return {
-		loading: state.coursesLoading,
-		lessons: state.lessons.filter(
+		loading: state.courses.coursesLoading,
+		lessons: state.lessons.lessons.filter(
 			lesson => lesson.courseId === courseId
 		),
-		course: state.courses.find(c => c.id === courseId)
+		course: state.courses.courses.find(c => c.id === courseId)
 	}
 };
 

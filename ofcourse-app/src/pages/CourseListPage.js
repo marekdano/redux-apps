@@ -61,10 +61,10 @@ const CourseListPage = ({
 };
 
 const mapStateToProps = state => ({
-  courses: state.courses,
-  coursesLoading: state.coursesLoading,
-  coursesError: state.coursesError,
-  isModalOpen: state.newCourseModalOpen
+  courses: state.courses.courses,
+  coursesLoading: state.courses.coursesLoading,
+  coursesError: state.courses.coursesError,
+  isModalOpen: state.courses.newCourseModalOpen
 });
 const mapDispatchToProps = {
   openNewCourseModal,
