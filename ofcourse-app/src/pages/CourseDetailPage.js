@@ -4,6 +4,7 @@ import NotFoundPage from './NotFoundPage';
 import Loading from '../components/Loading';
 import NewLesson from '../components/NewLesson';
 import './CourseDetailPage.css';
+import { getLessonsByCourse } from '../selectors';
 
 const CourseDetailPage = ({ course, lessons, loading }) => {
 	if (loading) {
@@ -40,9 +41,7 @@ const mapStateToProps = (state, ownProps) => {
 	const courseId = parseInt(ownProps.courseId, 10);
 	return {
 		loading: state.courses.coursesLoading,
-		lessons: state.lessons.lessons.filter(
-			lesson => lesson.courseId === courseId
-		),
+		lessons: getLessonsByCourse(state, ownProps),
 		course: state.courses.courses.find(c => c.id === courseId)
 	}
 };

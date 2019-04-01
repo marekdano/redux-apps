@@ -1,19 +1,14 @@
 {
   "courses": [
     {
-      "name": "test",
-      "price": 1,
+      "name": "t",
+      "price": 6,
       "id": 1
-    },
-    {
-      "name": "test2",
-      "price": 10,
-      "id": 2
     }
   ],
   "lessons": [
     {
-      "name": "lesson",
+      "name": "test",
       "courseId": 1,
       "id": 1
     }
