@@ -1,4 +1,4 @@
-import { createCourse, getCourses, createLesson } from './api';
+import { createCourse, getCourses, createLesson, getLessons } from './api';
 
 export const ADD_COURSE_BEGIN = 'ADD_COURSE_BEGIN';
 export const ADD_COURSE_SUCCESS = 'ADD_COURSE_SUCCESS';
@@ -8,6 +8,9 @@ export const LOAD_COURSES_SUCCESS = 'LOAD_COURSES_SUCCESS';
 export const LOAD_COURSES_ERROR = 'LOAD_COURSES_ERROR';
 export const OPEN_NEW_COURSE_MODAL = 'OPEN_NEW_COURSE_MODAL';
 export const CLOSE_NEW_COURSE_MODAL = 'CLOSE_NEW_COURSE_MODAL';
+export const LOAD_LESSONS_BEGIN = 'LOAD_LESSONS_BEGIN';
+export const LOAD_LESSONS_SUCCESS = 'LOAD_LESSONS_SUCCESS';
+export const LOAD_LESSONS_ERROR = 'LOAD_LESSONS_ERROR';
 export const ADD_LESSON_BEGIN = 'ADD_LESSON_BEGIN';
 export const ADD_LESSON_SUCCESS = 'ADD_LESSON_SUCCESS';
 export const ADD_LESSON_ERROR = 'ADD_LESSON_ERROR';
@@ -51,6 +54,19 @@ export const loadCourses = () => {
 			})
 			.catch(error => {
 				dispatch({ type: LOAD_COURSES_ERROR, error })
+			})
+	}
+}
+
+export const loadLessons = (courseId) => {
+	return dispatch => {
+		dispatch({ type: LOAD_LESSONS_BEGIN });
+		getLessons(courseId)
+			.then(lessons => {
+				dispatch({ type: LOAD_LESSONS_SUCCESS, payload: lessons });
+			})
+			.catch(error => {
+				dispatch({ type: LOAD_LESSONS_ERROR, error })
 			})
 	}
 }
