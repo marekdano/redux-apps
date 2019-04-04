@@ -28,9 +28,13 @@ const CourseDetailPage = ({ course, lessons, loading, loadLessons }) => {
       <div className="content">
         <div className="sidebar">
 					{lessons.length > 0 && (
-						<ul>
+						<ul className="lessons">
 							{lessons.map(lesson => (
-								<li key={lesson.id}>{lesson.name}</li>
+								<li key={lesson.id}>
+									<div className="lesson-item">
+									 {lesson.name}
+									</div>
+								</li>
 							))}
 						</ul>
 					)}
