@@ -24,9 +24,21 @@ export const createLesson = (name, courseId) => {
 	});
 };
 
+export const updateLesson = lesson => {
+	return putData(`${PREFIX}/lessons/${lesson.id}`, lesson)
+};
+
 function postData(url = ``, data = {}) {
+	return fetchWithData(url, data, 'POST');
+}
+
+function putData(url = ``, data = {}) {
+	return fetchWithData(url, data, 'PUT');
+}
+
+function fetchWithData(url = ``, data = {}, method = 'POST') {
 	return fetch(url, {
-		method: 'POST',
+		method,
 		headers: {
 			'Content-Type': 'application/json'
 		},
