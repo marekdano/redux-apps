@@ -1,9 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addLesson } from '../actions';
+import { addLesson, resetLessonError } from '../actions';
 import './NewLesson.css';
 
-const NewLesson = ({ addLesson, courseId }) => {
+const NewLesson = ({ 
+  addLesson, 
+  resetError,
+  courseId,
+  saving,
+  error
+}) => {
   const [editing, setEditing] = useState(false);
   const [title, setTitle] = useState('');
   const inputRef = useRef();
@@ -11,13 +17,23 @@ const NewLesson = ({ addLesson, courseId }) => {
   const reset = () => {
     setTitle('');
     setEditing(false);
+    resetError();
   };
 
   const commitEdit = e => {
     e.preventDefault();
-    addLesson(title, courseId);
-    reset();
+    addLesson(title, courseId)
+      .then(reset)
+      .catch(error => {
+        setEditing(true);
+      });
   };
+
+  const cancelEdit = () => {
+    if (!saving) {
+      reset();
+    }
+  }
 
   useEffect(() => {
     if (editing) {
@@ -26,18 +42,24 @@ const NewLesson = ({ addLesson, courseId }) => {
   }, [editing]);
 
   return editing ? (
-    <form
-      className="add-lesson-button editing"
-      onSubmit={commitEdit}
-    >
-      <input
-        ref={inputRef}
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-        onBlur={reset}
-        placeholder="Name the lesson"
-      />
-    </form>
+    <>
+      <form
+        className={`add-lesson-button editing" ${
+          error ? 'error' : ''
+        }`}
+        onSubmit={commitEdit}
+      >
+        <input
+          ref={inputRef}
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          onBlur={cancelEdit}
+          disabled={saving}
+          placeholder="Name the lesson"
+        />
+      </form>
+      {error && <div>{error.message}</div>}
+    </>
   ) : (
     <button
       className="add-lesson-button"
@@ -48,7 +70,12 @@ const NewLesson = ({ addLesson, courseId }) => {
   );
 };
 
+const mapStateToProps = state => ({
+  saving: state.lessons.saving,
+  error: state.lessons.error
+});
+
 export default connect(
-  null,
-  { addLesson }
+  mapStateToProps,
+  { addLesson, resetError: resetLessonError }
 )(NewLesson);

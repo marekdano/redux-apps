@@ -23,6 +23,7 @@ export const ADD_LESSON_ERROR = 'ADD_LESSON_ERROR';
 export const SAVE_LESSON_BEGIN = 'SAVE_LESSON_BEGIN';
 export const SAVE_LESSON_SUCCESS = 'SAVE_LESSON_SUCCESS';
 export const SAVE_LESSON_ERROR = 'SAVE_LESSON_ERROR';
+export const RESET_LESSON_ERROR = 'RESET_LESSON_ERROR';
 
 export const addCourse = (name, price) => {
 	return dispatch => {
@@ -96,6 +97,10 @@ export const loadLessons = (courseId) => {
 			})
 	}
 }
+
+export const resetLessonError = () => ({
+  type: RESET_LESSON_ERROR
+});
 
 export const openNewCourseModal = () => ({
   type: OPEN_NEW_COURSE_MODAL
