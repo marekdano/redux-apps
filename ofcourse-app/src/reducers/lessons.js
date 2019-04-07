@@ -2,6 +2,9 @@ import {
 	ADD_LESSON_BEGIN, 
 	ADD_LESSON_SUCCESS,
 	ADD_LESSON_ERROR,
+	SAVE_LESSON_BEGIN, 
+	SAVE_LESSON_SUCCESS,
+	SAVE_LESSON_ERROR,
 	LOAD_LESSONS_BEGIN, 
 	LOAD_LESSONS_SUCCESS,
 	LOAD_LESSONS_ERROR,
@@ -37,12 +40,14 @@ const reducer = (state = initState, action) => {
 				error: action.error
 			};
 		case ADD_LESSON_BEGIN:
+		case SAVE_LESSON_BEGIN:
 			return {
 				...state,
 				lessonSaveInProgress: true,
 				error: null,
 			}
 		case ADD_LESSON_SUCCESS:
+		case SAVE_LESSON_SUCCESS:
 			return {
 				...state,
 				lessons: {
@@ -51,6 +56,7 @@ const reducer = (state = initState, action) => {
 				},
 			};
 		case ADD_LESSON_ERROR:
+		case SAVE_LESSON_ERROR:
 			return {
 				...state,
 				lessonSaveInProgress: false,
