@@ -1,28 +1,31 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { addLesson, resetLessonError } from '../actions';
-import './NewLesson.css';
+import './Lesson.css';
 
-const NewLesson = ({ 
-  addLesson, 
+const Lesson = ({ 
   resetError,
-  courseId,
   saving,
-  error
+  error, 
+  onSubmit,
+  className,
+  lesson,
+  children,
 }) => {
+  const initValue = lesson ? lesson.name : '';
   const [editing, setEditing] = useState(false);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState(initValue);
   const inputRef = useRef();
 
   const reset = () => {
-    setTitle('');
+    setTitle(initValue);
     setEditing(false);
     resetError();
   };
 
   const commitEdit = e => {
     e.preventDefault();
-    addLesson(title, courseId)
+    onSubmit(title)
       .then(reset)
       .catch(error => {
         setEditing(true);
@@ -35,6 +38,10 @@ const NewLesson = ({
     }
   }
 
+  const beginEditing = () => {
+    setEditing(true);
+  }
+
   useEffect(() => {
     if (editing) {
       inputRef.current.focus();
@@ -44,7 +51,7 @@ const NewLesson = ({
   return editing ? (
     <>
       <form
-        className={`add-lesson-button editing" ${
+        className={`${className || ''} editing ${
           error ? 'error' : ''
         }`}
         onSubmit={commitEdit}
@@ -61,12 +68,8 @@ const NewLesson = ({
       {error && <div>{error.message}</div>}
     </>
   ) : (
-    <button
-      className="add-lesson-button"
-      onClick={() => setEditing(true)}
-    >
-      New Lesson
-    </button>
+    children(beginEditing)
+    
   );
 };
 
@@ -78,4 +81,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { addLesson, resetError: resetLessonError }
-)(NewLesson);
+)(Lesson);
