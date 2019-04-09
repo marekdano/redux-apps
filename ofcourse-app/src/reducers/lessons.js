@@ -26,13 +26,14 @@ const reducer = (state = initState, action) => {
 				error: null,
 			};
 		case LOAD_LESSONS_SUCCESS: 
+			const lessons = {}
+			action.payload.forEach(lesson => {
+        lessons[lesson.id] = lesson;
+      });
 			return {
 				...state,
 				loading: false,
-				lessons: {
-					...state.lessons,
-					...action.payload,
-				}
+				lessons
 			};
 		case LOAD_LESSONS_ERROR:
 			return {
@@ -49,6 +50,13 @@ const reducer = (state = initState, action) => {
 			}
 		case ADD_LESSON_SUCCESS:
 		case SAVE_LESSON_SUCCESS:
+			console.log({
+				...state,
+				lessons: {
+					...state.lessons,
+					[action.payload.id]: action.payload
+				}
+			});
 			return {
 				...state,
 				lessons: {
