@@ -41,7 +41,7 @@ export const addCourse = (name, price) => {
 export const addLesson = (name, courseId) => {
   return dispatch => {
 		dispatch({ type: ADD_LESSON_BEGIN });
-		createLesson(name, courseId)
+		return createLesson(name, courseId)
 			.then(course => {
 				dispatch({
 					type: ADD_LESSON_SUCCESS,
@@ -50,15 +50,16 @@ export const addLesson = (name, courseId) => {
 			})
 			.catch(error => {
 				dispatch({ type: ADD_LESSON_ERROR, error });
+				throw error;
 			});
     
   };
 };
 
-export const saveLesson = (lesson) => {
+export const saveLesson = lesson => {
   return dispatch => {
 		dispatch({ type: SAVE_LESSON_BEGIN });
-		updateLesson(lesson)
+		return updateLesson(lesson)
 			.then(lesson => {
 				dispatch({
 					type: SAVE_LESSON_SUCCESS,
@@ -67,6 +68,7 @@ export const saveLesson = (lesson) => {
 			})
 			.catch(error => {
 				dispatch({ type: SAVE_LESSON_ERROR, error });
+				throw error;
 			});
     
   };
