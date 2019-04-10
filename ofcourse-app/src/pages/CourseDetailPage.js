@@ -2,12 +2,19 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import NotFoundPage from './NotFoundPage';
 import Loading from '../components/Loading';
-import NewLesson from '../components/NewLesson';
-import { loadLessons } from '../actions';
+import Lesson from '../components/Lesson';
+import { loadLessons, addLesson, saveLesson } from '../actions';
 import './CourseDetailPage.css';
 import { getLessonsByCourse, getCourseById } from '../selectors';
 
-const CourseDetailPage = ({ course, lessons, loading, loadLessons }) => {
+const CourseDetailPage = ({ 
+	course, 
+	lessons, 
+	loading, 
+	loadLessons, 
+	addLesson,
+	saveLesson 
+}) => {
 	if (loading) {
 		return <Loading />
 	}
@@ -31,14 +38,45 @@ const CourseDetailPage = ({ course, lessons, loading, loadLessons }) => {
 						<ul className="lessons">
 							{lessons.map(lesson => (
 								<li key={lesson.id}>
-									<div className="lesson-item">
-									 {lesson.name}
-									</div>
+									<Lesson
+                    className="lesson-item"
+                    lesson={lesson}
+                    onSubmit={name =>
+                      saveLesson({
+                        ...lesson,
+                        name
+                      })
+                    }
+                  >
+                    {edit => (
+                      <div className="lesson-item">
+                        {lesson.name}
+                        <button
+                          onClick={() => edit(lesson.name)}
+                          className="edit-lesson-btn"
+                        >
+                          Edit
+                        </button>
+                      </div>
+                    )}
+                  </Lesson>
 								</li>
 							))}
 						</ul>
 					)}
-					<NewLesson courseId={course.id} />
+					<Lesson 
+						className='add-lesson-button'
+						onSubmit={title => addLesson(title, course.id)}
+					>
+						{edit => (
+							<button
+								className="add-lesson-button"
+								onClick={edit}
+							>
+								New Lesson
+							</button>
+						)}
+					</Lesson>  
 				</div>
         <div className="lesson" />
       </div>
@@ -54,4 +92,7 @@ const mapStateToProps = (state, ownProps) => {
 	}
 };
 
-export default connect(mapStateToProps, { loadLessons })(CourseDetailPage);
+export default connect(
+	mapStateToProps, 
+	{ loadLessons, addLesson, saveLesson }
+)(CourseDetailPage);

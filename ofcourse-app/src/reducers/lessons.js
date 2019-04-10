@@ -50,13 +50,6 @@ const reducer = (state = initState, action) => {
 			}
 		case ADD_LESSON_SUCCESS:
 		case SAVE_LESSON_SUCCESS:
-			console.log({
-				...state,
-				lessons: {
-					...state.lessons,
-					[action.payload.id]: action.payload
-				}
-			});
 			return {
 				...state,
 				lessons: {
