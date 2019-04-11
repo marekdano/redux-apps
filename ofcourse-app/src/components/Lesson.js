@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addLesson, resetLessonError } from '../actions';
+import { deleteLesson, resetLessonError } from '../actions';
 import './Lesson.css';
 
 const Lesson = ({ 
   resetError,
+  deleteLesson,
   saving,
   error, 
   onSubmit,
@@ -36,11 +37,15 @@ const Lesson = ({
     if (!saving) {
       reset();
     }
-  }
+  };
 
   const beginEditing = () => {
     setEditing(true);
-  }
+  };
+
+  const performDelete = () => {
+    deleteLesson(lesson);
+  };
 
   useEffect(() => {
     if (editing) {
@@ -68,7 +73,7 @@ const Lesson = ({
       {error && <div>{error.message}</div>}
     </>
   ) : (
-    children(beginEditing)
+    children(beginEditing, performDelete)
   );
 };
 
@@ -79,5 +84,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addLesson, resetError: resetLessonError }
+  { deleteLesson, resetError: resetLessonError }
 )(Lesson);

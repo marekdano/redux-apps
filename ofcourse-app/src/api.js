@@ -28,12 +28,20 @@ export const updateLesson = lesson => {
 	return putData(`${PREFIX}/lessons/${lesson.id}`, lesson)
 };
 
+export const destroyLesson = (lesson) => {
+	return deleteData(`${PREFIX}/lessons/${lesson.id}`);
+}
+
 function postData(url = ``, data = {}) {
 	return fetchWithData(url, data, 'POST');
 }
 
 function putData(url = ``, data = {}) {
 	return fetchWithData(url, data, 'PUT');
+}
+
+function deleteData(url = ``, data = {}) {
+	return fetchWithData(url, data, 'DELETE');
 }
 
 function fetchWithData(url = ``, data = {}, method = 'POST') {

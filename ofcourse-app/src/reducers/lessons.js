@@ -9,6 +9,7 @@ import {
 	LOAD_LESSONS_SUCCESS,
 	LOAD_LESSONS_ERROR,
 	RESET_LESSON_ERROR,
+	DELETE_LESSON_SUCCESS,
 } from '../actions';
 
 const initState = {
@@ -52,6 +53,7 @@ const reducer = (state = initState, action) => {
 		case SAVE_LESSON_SUCCESS:
 			return {
 				...state,
+				saving: false,
 				lessons: {
 					...state.lessons,
 					[action.payload.id]: action.payload
@@ -63,6 +65,12 @@ const reducer = (state = initState, action) => {
 				...state,
 				saving: false,
 				error: action.error
+			};
+		case DELETE_LESSON_SUCCESS:
+			const {[action.payload.id]: _, ...lessLessons} = state.lessons;
+			return {
+				...state,
+				lessons: lessLessons
 			};
 		case RESET_LESSON_ERROR:
       return {
