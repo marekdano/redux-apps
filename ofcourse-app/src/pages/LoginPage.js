@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { login, signup } from '../actions';
 import './LoginPage.css';
 
 const LoginPage = ({ error, loading, login, signup }) => {
@@ -47,4 +49,10 @@ const LoginPage = ({ error, loading, login, signup }) => {
   );
 };
 
-export default LoginPage;
+const mapStateToProps = state => ({
+	loading: state.user.loading,
+	error: state.user.error
+});
+const mapDispatchToProps = { signup, login };
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
