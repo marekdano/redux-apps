@@ -30,7 +30,21 @@ export const updateLesson = lesson => {
 
 export const destroyLesson = (lesson) => {
 	return deleteData(`${PREFIX}/lessons/${lesson.id}`);
-}
+};
+
+export const loginUser = (username, password) => {
+	return postData(PREFIX + `/login`, {
+		username, 
+		password
+	});
+};
+
+export const createUser = (username, password) => {
+	return postData(PREFIX + `/users`, {
+		username, 
+		password
+	});
+};
 
 function postData(url = ``, data = {}) {
 	return fetchWithData(url, data, 'POST');
