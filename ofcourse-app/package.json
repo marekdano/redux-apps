@@ -19,10 +19,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "dev-server": "json-server db.json --routes routes.json -w -p 8000"
+    "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8000",
+  "proxy": "http://localhost:8080",
   "eslintConfig": {
     "extends": "react-app"
   },
