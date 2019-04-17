@@ -71,5 +71,17 @@ function fetchWithData(url = ``, data = {}, method = 'POST') {
 			'Authorization': authToken ? `Bearer ${authToken}` : undefined
 		},
 		body: JSON.stringify(data)
-	}).then(response => response.json());
+	})
+	.then(handleErrors)
+	.then(response => response.json());
+}
+
+function handleErrors(response) {
+  if (!response.ok) {
+    return response.json().then(body => {
+      throw new Error(body.message);
+    });
+  } else {
+    return response;
+  }
 }
