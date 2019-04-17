@@ -42,5 +42,14 @@
       "courseId": 3,
       "id": 6
     }
+  ],
+  "users": [
+    {
+      "username": "test",
+      "password": "test",
+      "role": "user",
+      "courses": [],
+      "id": 1
+    }
   ]
 }

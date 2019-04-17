@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import reducer from './reducers';
 import App from './App';
 import { loadCourses } from './actions';
+import { saveAuthToken } from './middleware';
 import './index.css';
 
 
@@ -18,7 +19,7 @@ const composeEnhancers =
     }) : compose;
 
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk),
+  applyMiddleware(thunk, saveAuthToken),
 );
 
 const store = createStore(reducer, enhancer);
