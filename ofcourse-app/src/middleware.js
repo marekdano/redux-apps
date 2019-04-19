@@ -6,4 +6,4 @@ export const saveAuthToken = store => next => action => {
 		setToken(action.payload.token);
 	}
 	next(action);
-}
+};
