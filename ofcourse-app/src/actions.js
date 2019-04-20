@@ -37,6 +37,7 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const SIGNUP_BEGIN = 'SIGNUP_BEGIN';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
 
 export const addCourse = (name, price) => {
@@ -167,3 +168,16 @@ export const openNewCourseModal = () => ({
 export const closeNewCourseModal = () => ({
   type: CLOSE_NEW_COURSE_MODAL
 });
+
+export const loadLastUser = () => {
+	return dispatch => {
+		const json = localStorage.getItem('currentUser');
+		try {
+			const user = JSON.parse(json);
+			dispatch({ type: LOGIN_SUCCESS, payload: user });
+		} catch(e) {
+			dispatch({ type: LOGOUT_SUCCESS });
+			localStorage.removeItem('currentUser');
+		}
+	}
+}

@@ -6,7 +6,7 @@ import thunk from 'redux-thunk';
 import Modal from 'react-modal';
 import reducer from './reducers';
 import App from './App';
-import { loadCourses } from './actions';
+import { loadCourses, loadLastUser } from './actions';
 import { saveAuthToken } from './middleware';
 import './index.css';
 
@@ -24,6 +24,7 @@ const enhancer = composeEnhancers(
 
 const store = createStore(reducer, enhancer);
 store.dispatch(loadCourses());
+store.dispatch(loadLastUser());
 
 Modal.setAppElement('#root');
 
