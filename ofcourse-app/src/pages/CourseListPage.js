@@ -8,6 +8,7 @@ import {
 import Modal from 'react-modal';
 import NewCourse from '../components/NewCourse';
 import './CourseListPage.css';
+import LoginLogout from '../components/LoginLogout';
 
 const CourseListPage = ({
   courses,
@@ -32,6 +33,7 @@ const CourseListPage = ({
   ) : (
     <div className="CourseList">
       <h1>Your Courses</h1>
+      <LoginLogout/>
       <button
         className="new-course-btn"
         onClick={openNewCourseModal}

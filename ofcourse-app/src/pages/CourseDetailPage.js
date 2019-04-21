@@ -6,6 +6,7 @@ import Lesson from '../components/Lesson';
 import { loadLessons, addLesson, saveLesson } from '../actions';
 import './CourseDetailPage.css';
 import { getLessonsByCourse, getCourseById } from '../selectors';
+import LoginLogout from '../components/LoginLogout';
 
 const CourseDetailPage = ({ 
 	course, 
@@ -31,6 +32,7 @@ const CourseDetailPage = ({
 		<div className="CourseDetail">
       <header>
         <h1>{course.name}</h1>
+				<LoginLogout/>
       </header>
       <div className="content">
         <div className="sidebar">
