@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, SIGNUP_SUCCESS } from "./actions";
+import { LOGIN_SUCCESS, SIGNUP_SUCCESS, LOGOUT_SUCCESS } from "./actions";
 import { setToken } from "./api";
 
 export const saveAuthToken = store => next => action => {
@@ -9,6 +9,11 @@ export const saveAuthToken = store => next => action => {
 			'currentUser',
 			JSON.stringify(action.payload)
 		)
+	}
+
+	if (action.type === LOGOUT_SUCCESS) {
+		setToken(null);
+		localStorage.removeItem('currentUser');
 	}
 	next(action);
 };

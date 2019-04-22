@@ -176,8 +176,11 @@ export const loadLastUser = () => {
 			const user = JSON.parse(json);
 			dispatch({ type: LOGIN_SUCCESS, payload: user });
 		} catch(e) {
-			dispatch({ type: LOGOUT_SUCCESS });
-			localStorage.removeItem('currentUser');
+			dispatch(logout());
 		}
 	}
-}
+};
+
+export const logout = () => ({
+	type: LOGOUT_SUCCESS
+})
