@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link, Match } from '@reach/router';
 import NotFoundPage from './NotFoundPage';
 import Loading from '../components/Loading';
 import Lesson from '../components/Lesson';
@@ -14,7 +15,8 @@ const CourseDetailPage = ({
 	loading, 
 	loadLessons, 
 	addLesson,
-	saveLesson 
+	saveLesson,
+	children,
 }) => {
 	if (loading) {
 		return <Loading />
@@ -39,36 +41,46 @@ const CourseDetailPage = ({
 					{lessons.length > 0 && (
 						<ul className="lessons">
 							{lessons.map(lesson => (
-								<li key={lesson.id}>
-									<Lesson
-                    className="lesson-item"
-                    lesson={lesson}
-                    onSubmit={name =>
-                      saveLesson({
-                        ...lesson,
-                        name
-                      })
-                    }
-                  >
-                    {(edit, remove) => (
-                      <div className="lesson-item">
-                        <span>{lesson.name}</span>
-                        <button
-                          onClick={() => edit(lesson.name)}
-                          className="edit-lesson-btn"
-                        >
-                          Edit
-                        </button>
-												<button 
-													className="delete-lesson-btn"
-													onClick={remove}
-												>
-													Delete
-												</button>
-                      </div>
-                    )}
-                  </Lesson>
-								</li>
+								<Match 
+									key={lesson.id} 
+									path={`lessons/${lesson.id}`}
+								>
+									{({ match }) => {
+										const className = `lesson-item ${match ? 'selected' : ''}`;
+										return <li>
+											<Lesson
+												className={className}
+												lesson={lesson}
+												onSubmit={name =>
+													saveLesson({
+														...lesson,
+														name
+													})
+												}
+											>
+												{(edit, remove) => (
+													<div className={className}>
+														<Link to={`lessons/${lesson.id}`}>
+															{lesson.name}
+														</Link>
+														<button
+															onClick={() => edit(lesson.name)}
+															className="edit-lesson-btn"
+														>
+															Edit
+														</button>
+														<button 
+															className="delete-lesson-btn"
+															onClick={remove}
+														>
+															Delete
+														</button>
+													</div>
+												)}
+											</Lesson>
+										</li>
+									}}
+								</Match>
 							))}
 						</ul>
 					)}
@@ -86,7 +98,9 @@ const CourseDetailPage = ({
 						)}
 					</Lesson>  
 				</div>
-        <div className="lesson" />
+        <div className="lesson">
+					{children}
+				</div>
       </div>
     </div>
 	);
