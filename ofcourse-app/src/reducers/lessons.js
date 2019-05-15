@@ -10,6 +10,7 @@ import {
 	LOAD_LESSONS_ERROR,
 	RESET_LESSON_ERROR,
 	DELETE_LESSON_SUCCESS,
+	SET_LESSON_MARKDOWN,
 } from '../actions';
 
 const initState = {
@@ -72,6 +73,18 @@ const reducer = (state = initState, action) => {
 				...state,
 				lessons: lessLessons
 			};
+		case SET_LESSON_MARKDOWN:
+			const selectedLesson = state.lessons[action.payload.lesson.id];
+			return {
+				...state,
+				lessons: {
+					...state.lessons,
+					[action.payload.lesson.id]: {
+						...selectedLesson,
+						markdown: action.payload.markdown
+					}
+				}
+			}
 		case RESET_LESSON_ERROR:
       return {
 				...state,
