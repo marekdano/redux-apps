@@ -1,7 +1,8 @@
 import React from 'react';
-import Lesson from './Lesson';
+import { connect } from 'react-redux';
+import { setLessonMarkdown } from '../actions';
 
-const LessonEditor = ({ lesson }) => (
+const LessonEditor = ({ lesson, setLessonMarkdown }) => (
 	<>
 		<div className="lesson-editor-help">
 			<p>
@@ -10,9 +11,10 @@ const LessonEditor = ({ lesson }) => (
 		</div>
 		<texarea 
 			className="lesson-editor"
-			value={Lesson.name}
+			value={lesson.markdown || ''}
+			onChange={e => setLessonMarkdown(lesson, e.target.value)}
 		/>
 	</>
 );
 
-export default LessonEditor;
+export default connect(null, { setLessonMarkdown })(LessonEditor);
