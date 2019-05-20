@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'; 
 import LessonEditor from '../components/LessonEditor';
 import NotFoundPage from './NotFoundPage';
+import ReactMarkdown from 'react-markdown';
 
 const LessonPage = ({ lesson, loading }) => {
 	if (loading) {
@@ -11,7 +12,8 @@ const LessonPage = ({ lesson, loading }) => {
 	if (!lesson) {
 		return <NotFoundPage />
 	}
-	return <LessonEditor lesson={lesson} />
+	return <ReactMarkdown source={lesson.markdown || ''} />;
+	// return <LessonEditor lesson={lesson} />
 };
 
 const mapStateToProps = (state, props) => {
