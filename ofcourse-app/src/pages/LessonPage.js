@@ -4,7 +4,7 @@ import LessonEditor from '../components/LessonEditor';
 import NotFoundPage from './NotFoundPage';
 import ReactMarkdown from 'react-markdown';
 
-const LessonPage = ({ lesson, loading }) => {
+const LessonPage = ({ lesson, loading, previewMode }) => {
 	if (loading) {
 		return 'Loading...';
 	}
@@ -12,13 +12,17 @@ const LessonPage = ({ lesson, loading }) => {
 	if (!lesson) {
 		return <NotFoundPage />
 	}
-	return <ReactMarkdown source={lesson.markdown || ''} />;
-	// return <LessonEditor lesson={lesson} />
+	return previewMode ? (
+    <ReactMarkdown source={lesson.markdown || ''} /> 
+  ) : (
+    <LessonEditor lesson={lesson} />
+  );
 };
 
 const mapStateToProps = (state, props) => {
 	const lessonId = parseInt(props.lessonId, 10);
 	return {
+    previewMode: state.app.previewMode,
 		lesson: state.lessons.lessons[lessonId],
 		loading: state.lessons.loading
 	}

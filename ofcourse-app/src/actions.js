@@ -31,6 +31,7 @@ export const SAVE_LESSON_SUCCESS = 'SAVE_LESSON_SUCCESS';
 export const SAVE_LESSON_ERROR = 'SAVE_LESSON_ERROR';
 export const RESET_LESSON_ERROR = 'RESET_LESSON_ERROR';
 export const SET_LESSON_MARKDOWN = 'SET_LESSON_MARKDOWN';
+export const TOGGLE_PREVIEW_MODE = 'TOGGLE_PREVIEW_MODE';
 
 export const LOGIN_BEGIN = 'LOGIN_BEGIN';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -204,4 +205,8 @@ export const loadLastUser = () => {
 
 export const logout = () => ({
 	type: LOGOUT_SUCCESS
+});
+
+export const togglePreviewMode = () => ({
+  type: TOGGLE_PREVIEW_MODE
 })
