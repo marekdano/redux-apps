@@ -8,6 +8,7 @@ import { loadLessons, addLesson, saveLesson, togglePreviewMode } from '../action
 import './CourseDetailPage.css';
 import { getLessonsByCourse, getCourseById } from '../selectors';
 import LoginLogout from '../components/LoginLogout';
+import RoleRequired from '../components/RoleRequired';
 
 const CourseDetailPage = ({ 
 	course, 
@@ -36,9 +37,11 @@ const CourseDetailPage = ({
 		<div className="CourseDetail">
       <header>
         <h1>{course.name}</h1>
-				<button className="preview-btn" onClick={togglePreviewMode}>
-					{previewMode ? 'Edit' : 'Preview'}
-				</button>
+				<RoleRequired role="admin">
+					<button className="preview-btn" onClick={togglePreviewMode}>
+						{previewMode ? 'Edit' : 'Preview'}
+					</button>
+				</RoleRequired>
 				<LoginLogout/>
       </header>
       <div className="content">
@@ -89,19 +92,21 @@ const CourseDetailPage = ({
 							))}
 						</ul>
 					)}
-					<Lesson 
-						className='add-lesson-button'
-						onSubmit={title => addLesson(title, course.id)}
-					>
-						{edit => (
-							<button
-								className="add-lesson-button"
-								onClick={edit}
-							>
-								New Lesson
-							</button>
-						)}
-					</Lesson>  
+					<RoleRequired role="admin">
+						<Lesson 
+							className='add-lesson-button'
+							onSubmit={title => addLesson(title, course.id)}
+						>
+							{edit => (
+								<button
+									className="add-lesson-button"
+									onClick={edit}
+								>
+									New Lesson
+								</button>
+							)}
+						</Lesson> 
+					</RoleRequired> 
 				</div>
         <div className="lesson">
 					{children}
