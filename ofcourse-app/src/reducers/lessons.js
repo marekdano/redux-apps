@@ -11,6 +11,7 @@ import {
 	RESET_LESSON_ERROR,
 	DELETE_LESSON_SUCCESS,
 	SET_LESSON_MARKDOWN,
+	RESET_LESSONS,
 } from '../actions';
 
 const initState = {
@@ -90,6 +91,11 @@ const reducer = (state = initState, action) => {
 				...state,
 				error: null
 			};
+		case RESET_LESSONS:
+			return {
+				...state,
+				...initState
+			}
 		default:
 			return state;
 	}
