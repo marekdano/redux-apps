@@ -5,7 +5,7 @@ const middlewares = jsonServer.defaults();
 const jwt = require('jsonwebtoken');
 
 const SECRET_KEY = '12345_not_very_secret';
-const EXPIRES_IN = '20s';
+const EXPIRES_IN = '24h';
 
 function createToken(payload) {
   return jwt.sign(payload, SECRET_KEY, {
