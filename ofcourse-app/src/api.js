@@ -17,9 +17,12 @@ export const getCourses = () => {
 };
 
 export const getLessons = (courseId) => {
-	return fetch(
-		PREFIX + '/lessons?courseId=' + courseId
-	).then(res => res.json());
+	return fetch(PREFIX + '/lessons?courseId=' + courseId, {
+    headers: {
+      Authorization: `Bearer ${authToken}`
+    }
+  })
+	  .then(res => res.json());
 };
 
 export const createLesson = (name, courseId) => {
