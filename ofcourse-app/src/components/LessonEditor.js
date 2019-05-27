@@ -9,7 +9,7 @@ const LessonEditor = ({ lesson, setLessonMarkdown }) => (
 				You are editing this lesson. Change are saved automatically. 
 			</p>
 		</div>
-		<texarea 
+		<textarea 
 			className="lesson-editor"
 			value={lesson.markdown || ''}
 			onChange={e => setLessonMarkdown(lesson, e.target.value)}
