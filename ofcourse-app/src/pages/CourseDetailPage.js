@@ -1,16 +1,22 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Link, Match } from '@reach/router';
+import { Link, Match, Redirect } from '@reach/router';
 import NotFoundPage from './NotFoundPage';
 import Loading from '../components/Loading';
 import Lesson from '../components/Lesson';
 import { loadLessons, addLesson, saveLesson, togglePreviewMode } from '../actions';
 import './CourseDetailPage.css';
-import { getLessonsByCourse, getCourseById } from '../selectors';
+import { 
+	getLessonsByCourse, 
+	getCourseById,
+	userOwnsCourse
+} from '../selectors';
 import LoginLogout from '../components/LoginLogout';
 import RoleRequired from '../components/RoleRequired';
 
 const CourseDetailPage = ({ 
+	currentUser,
+	courseId,
 	course, 
 	lessons, 
 	loading, 
@@ -19,8 +25,12 @@ const CourseDetailPage = ({
 	saveLesson,
 	children,
 	togglePreviewMode,
-	previewMode
+	previewMode,
+	userOwnsCourse
 }) => {
+	if (!userOwnsCourse) {
+		return <Redirect to={`/courses/${courseId}/buy`} noThrow />
+	}
 	if (loading) {
 		return <Loading />
 	}
@@ -120,10 +130,12 @@ const CourseDetailPage = ({
 
 const mapStateToProps = (state, ownProps) => {
 	return {
+		currentUser: state.user.user,
 		previewMode: state.app.previewMode,
 		loading: state.courses.coursesLoading,
 		lessons: getLessonsByCourse(state, ownProps),
-		course: getCourseById(state, ownProps)
+		course: getCourseById(state, ownProps),
+		userOwnsCourse: userOwnsCourse(state, ownProps)
 	}
 };
 
