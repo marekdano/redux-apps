@@ -46,6 +46,11 @@
       "courseId": 1,
       "id": 5,
       "markdown": "1. Cut some pieces of wood.\n2. Glue a few of them togeher.\n3. Make the rest of the workbench.\n\n![](https://daveceddia.com/images/amazing-workbench.jpg)"
+    },
+    {
+      "name": "Advanced",
+      "courseId": 2,
+      "id": 6
     }
   ],
   "users": [
@@ -53,7 +58,10 @@
       "username": "test",
       "password": "test",
       "role": "user",
-      "courses": [1],
+      "courses": [
+        1,
+        2
+      ],
       "id": 1
     },
     {
