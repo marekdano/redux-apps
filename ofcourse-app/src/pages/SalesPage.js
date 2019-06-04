@@ -1,19 +1,40 @@
 import React from 'react';
 import { connect } from 'react-redux'; 
+import { Redirect } from '@reach/router';
+import { buyCourse } from '../actions';
+import { getCourseById, userOwnsCourse } from '../selectors';
 import './SalesPage.css';
-import { getCourseById } from '../selectors';
 
-const SalesPage = ({ course }) => {
+const SalesPage = ({ 
+	course, 
+	courseId,
+	currentUser,
+	navigate,
+	buyCourse,
+	userOwnsCourse,
+}) => {
+	if (userOwnsCourse) {
+		return <Redirect to={`/courses/${courseId}`} noThrow />
+	}
+	const buyOrLogin = () => {
+		if (currentUser) {
+			buyCourse(courseId);
+		} else {
+			navigate('/login');
+		}
+	}
 	return (
 		<div className="SalesPage">
 			<h1>Buy {course && course.name}</h1>
 			<p>You're gonna love this course.</p>
-			<button>BUY NOW</button>
+			<button onClick={buyOrLogin}>BUY NOW</button>
 		</div>
 	);
 };
 	
 const mapStateToProps = (state, props) => ({
-	course: getCourseById(state, props)
+	currentUser: state.user.user,
+	course: getCourseById(state, props),
+	userOwnsCourse: userOwnsCourse(state, props)
 });
-export default connect(mapStateToProps)(SalesPage);
+export default connect(mapStateToProps, { buyCourse })(SalesPage);

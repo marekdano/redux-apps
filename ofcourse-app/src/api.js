@@ -5,6 +5,12 @@ export const setToken = token => {
 	authToken = token;
 }
 
+export const purchase = courseId => {
+	return postData(PREFIX + '/buy', {
+		courseId
+	});
+};
+
 export const createCourse = (name, price) => {
 	return postData(PREFIX +'/courses', { 
 		name,
