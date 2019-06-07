@@ -13,7 +13,9 @@ export const createCourse = (name, price) => {
 };
 
 export const getCourses = () => {
-	return fetch(PREFIX + '/courses').then(res => res.json());
+	return fetch(PREFIX + '/courses')
+		.then(handleErrors)
+		.then(res => res.json());
 };
 
 export const getLessons = (courseId) => {
@@ -21,7 +23,8 @@ export const getLessons = (courseId) => {
     headers: {
       Authorization: `Bearer ${authToken}`
     }
-  })
+	})
+		.then(handleErrors)
 	  .then(res => res.json());
 };
 
